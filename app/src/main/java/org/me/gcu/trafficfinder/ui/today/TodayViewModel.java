@@ -1,14 +1,14 @@
-package org.me.gcu.trafficfinder.ui.home;
+package org.me.gcu.trafficfinder.ui.today;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class TodayViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public TodayViewModel() {
         mText = new MutableLiveData<>();
         mText.setValue("This is home fragment");
     }
