@@ -5,8 +5,14 @@
     <string name="title_search">Search Traffic</string>
     <string name="title_activity_test_map">Map</string>
 
+
     <string name="search">Search</string>
+
 
     <string name="text_box_enter_a_destination">Enter a destination</string>
     <string name="text_box_enter_a_start_point">Enter a start point</string>
+
+
+    <string name="text_box_filter_by">Street Name</string>
+
 </resources>
