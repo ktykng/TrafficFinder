@@ -1,4 +1,4 @@
-package org.me.gcu.trafficfinder.ui.today;
+package org.me.gcu.trafficfinder.models.viewmodels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

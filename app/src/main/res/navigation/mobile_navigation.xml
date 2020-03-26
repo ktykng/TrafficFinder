@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_today"
-        android:name="org.me.gcu.trafficfinder.ui.today.TodayFragment"
+        android:name="org.me.gcu.trafficfinder.controllers.TodayFragment"
         android:label="Todays Traffic"
         tools:layout="@layout/fragment_today" />
 
     <fragment
         android:id="@+id/navigation_planner"
-        android:name="org.me.gcu.trafficfinder.ui.planner.PlannerFragment"
+        android:name="org.me.gcu.trafficfinder.controllers.PlannerFragment"
         android:label="Journey Planner"
         tools:layout="@layout/fragment_planner" />
 
     <fragment
         android:id="@+id/navigation_search"
-        android:name="org.me.gcu.trafficfinder.ui.search.SearchFragment"
+        android:name="org.me.gcu.trafficfinder.controllers.SearchFragment"
         android:label="Search Traffic"
         tools:layout="@layout/fragment_search" />
 </navigation>

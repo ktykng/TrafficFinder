@@ -45,34 +45,4 @@ public class TestMapActivity extends FragmentActivity implements OnMapReadyCallb
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
     }
 
-//    @Override
-//    public void onMapReady(GoogleMap googleMap) {
-//        map = googleMap;
-//        LatLng uk = new LatLng(54, -3);
-//        map.moveCamera(CameraUpdateFactory.newLatLng(uk));
-//    }
-//
-//    @Override
-//    public void onResume() {
-//        mapView.onResume();
-//        super.onResume();
-//    }
-//
-//    @Override
-//    public void onPause() {
-//        mapView.onPause();
-//        super.onPause();
-//    }
-//
-//    @Override
-//    public void onDestroy() {
-//        mapView.onDestroy();
-//        super.onDestroy();
-//    }
-//
-//    @Override
-//    public void onLowMemory() {
-//        mapView.onLowMemory();
-//        super.onLowMemory();
-//    }
 }
