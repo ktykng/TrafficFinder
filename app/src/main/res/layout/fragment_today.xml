@@ -8,6 +8,22 @@
     android:id="@+id/today_constraint_layout"
     android:padding="24dp">
 
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        android:id="@+id/look_filter_layout"-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:errorEnabled="false"-->
+<!--        android:hint="@string/text_box_filter_by"-->
+<!--        app:layout_constraintTop_toTopOf="parent">-->
+
+<!--        <AutoCompleteTextView-->
+<!--            android:id="@+id/look_filter_field"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:editable="false"/>-->
+
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/today_date_layout"
@@ -17,7 +33,9 @@
         app:endIconDrawable="@drawable/ic_date_range_black_24dp"
         app:endIconMode="custom"
         app:errorEnabled="false"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/today_date_field"
@@ -26,14 +44,19 @@
             android:hint="Enter Date"
             android:inputType="date"
             android:singleLine="true"
-            android:visibility="visible" />
+            android:visibility="visible"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10.0sp"/>
     </com.google.android.material.textfield.TextInputLayout>
-<!--    <ListView-->
-<!--        android:id="@+id/today_list_view"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        app:layout_constraintTop_toBottomOf="@id/today_date_layout">-->
 
-<!--    </ListView>-->
+    <ListView
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp"
+        android:id="@+id/today_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/today_date_layout">
+
+    </ListView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

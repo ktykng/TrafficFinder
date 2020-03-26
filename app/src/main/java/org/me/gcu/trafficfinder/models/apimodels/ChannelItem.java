@@ -1,6 +1,7 @@
 package org.me.gcu.trafficfinder.models.apimodels;
 
 import com.google.android.gms.maps.model.LatLng;
+import org.me.gcu.trafficfinder.models.enums.AsyncTaskCallUrlType;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -14,6 +15,7 @@ public class ChannelItem {
     private Date DatePublished;
     private Date StartDate;
     private Date EndDate;
+    private AsyncTaskCallUrlType Type;
 
 
     // Empty Constructor
@@ -22,7 +24,6 @@ public class ChannelItem {
         Description = "";
         Link = "";
         Coordinates = new Coordinates();
-
         Calendar today = Calendar.getInstance();
         today.set(Calendar.HOUR_OF_DAY, 0);
         DatePublished = today.getTime();
@@ -33,12 +34,13 @@ public class ChannelItem {
 
     // Overloaded Constructor
     public ChannelItem(String title,
-                                      String description,
-                                      String link,
-                                      Coordinates coordinates,
-                                      Date datePublished,
-                                      Date startDate,
-                                      Date endDate)
+      String description,
+      String link,
+      Coordinates coordinates,
+      Date datePublished,
+      Date startDate,
+      Date endDate,
+      AsyncTaskCallUrlType type)
     {
         Title = title;
         Description = description;
@@ -47,6 +49,7 @@ public class ChannelItem {
         DatePublished = datePublished;
         StartDate = startDate;
         EndDate = endDate;
+        Type = type;
     }
 
 
@@ -108,6 +111,14 @@ public class ChannelItem {
 
     public void setEndDate(Date endDate) {
         EndDate = endDate;
+    }
+
+    public AsyncTaskCallUrlType getType() {
+        return Type;
+    }
+
+    public void setType(AsyncTaskCallUrlType type) {
+        Type = type;
     }
 }
 

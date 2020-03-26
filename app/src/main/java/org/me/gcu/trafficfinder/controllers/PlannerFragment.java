@@ -1,15 +1,19 @@
 package org.me.gcu.trafficfinder.controllers;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -18,19 +22,37 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.model.AutocompletePrediction;
+import com.google.android.libraries.places.api.model.AutocompleteSessionToken;
+import com.google.android.libraries.places.api.model.Place;
+import com.google.android.libraries.places.api.model.TypeFilter;
+import com.google.android.libraries.places.api.net.FetchPlaceRequest;
+import com.google.android.libraries.places.api.net.FetchPlaceResponse;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsRequest;
+import com.google.android.libraries.places.api.net.FindAutocompletePredictionsResponse;
 import com.google.android.libraries.places.api.net.PlacesClient;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import org.me.gcu.trafficfinder.R;
-import org.me.gcu.trafficfinder.models.viewmodels.PlannerViewModel;
+import org.me.gcu.trafficfinder.apis.controllers.APIController;
+import org.me.gcu.trafficfinder.apis.tasks.HttpGetGoogleMapA2BPlotterRequest;
+import org.me.gcu.trafficfinder.models.apimodels.APIModel;
+import org.me.gcu.trafficfinder.models.apimodels.ChannelItem;
+import org.me.gcu.trafficfinder.models.enums.SourceViewRequest;
+import org.me.gcu.trafficfinder.models.interfaces.AsyncResponse;
 
+import java.util.Arrays;
 import java.util.List;
 
+public class PlannerFragment extends Fragment implements OnMapReadyCallback, AsyncResponse {
 
-public class PlannerFragment extends Fragment implements OnMapReadyCallback {
-
+    // region Fields
     private View root;
     private GoogleMap map;
     private MapView mapView;
@@ -45,32 +67,56 @@ public class PlannerFragment extends Fragment implements OnMapReadyCallback {
     private LatLng startLatLong, endLatLong, medianLatLong;
     private MarkerOptions startPlace, endPlace;
     private Polyline currentPolyline;
+    private APIController controller;
 
     private int ZOOM_LEVEL = 12;
-
-    private PlannerViewModel plannerViewModel;
+    // endregion
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
+        // region Call Traffic Scotland Controller to get Current Incidents
+        controller = new APIController();
+        // endregion
+
+        // region Find all Views By Id
         root = inflater.inflate(R.layout.fragment_planner, container, false);
         startLayout = root.findViewById(R.id.planner_start_layout);
         endLayout = root.findViewById(R.id.planner_end_layout);
         startText = root.findViewById(R.id.planner_start_field);
         endText = root.findViewById(R.id.planner_end_field);
         submitButton = root.findViewById(R.id.planner_search_submit);
+        // endregion
 
+        // region Instantiate - Search Button
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitForm(v);
+            }
+        });
+        // endregion
 
+        // region Instantiate - Places Client
+        mFusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(getContext());
+        Places.initialize(getContext(), "AIzaSyBzzJVFUHWrwQMh3bUDwUY-p5XMeO-NAfQ");
+        placesClient = Places.createClient(getContext());
+        // endregion
+
+        // region Instantiate - Map
         MapsInitializer.initialize(this.getActivity());
         mapView = root.findViewById(R.id.planner_map_view);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync((OnMapReadyCallback) this);
+        // endregion
 
 
 
         return root;
     }
 
+
+    // region Map Recycle Methods
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
@@ -101,4 +147,187 @@ public class PlannerFragment extends Fragment implements OnMapReadyCallback {
         mapView.onLowMemory();
         super.onLowMemory();
     }
+    // endregion
+
+
+    // region Submit Form Methods
+    private void submitForm(View root){
+        boolean failedValidation = false;
+
+        if(startText.getText().toString() == null || startText.getText().toString().equals("")){
+            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            toast.show();
+            failedValidation = true;
+        }
+
+        if(endText.getText().toString() == null || endText.getText().toString().equals("")){
+            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            toast.show();
+            failedValidation = true;
+        }
+
+        if(!failedValidation){
+            startText.onEditorAction(EditorInfo.IME_ACTION_DONE);
+            endText.onEditorAction(EditorInfo.IME_ACTION_DONE);
+
+            // region Find Start Place
+            final AutocompleteSessionToken token = AutocompleteSessionToken.newInstance();
+            final FindAutocompletePredictionsRequest predictionsRequest = FindAutocompletePredictionsRequest
+                    .builder()
+                    .setCountry("GB")
+                    .setTypeFilter(TypeFilter.ADDRESS)
+                    .setSessionToken(token)
+                    .setQuery(startText.getText().toString() + " Scotland")
+                    .build();
+
+
+
+            placesClient.findAutocompletePredictions(predictionsRequest).addOnCompleteListener(new OnCompleteListener<FindAutocompletePredictionsResponse>() {
+                @Override
+                public void onComplete(@NonNull Task<FindAutocompletePredictionsResponse> task) {
+                    if(task.isSuccessful()){
+                        FindAutocompletePredictionsResponse predictionsResponse = task.getResult();
+                        if(predictionsResponse != null) {
+                            predictionList = predictionsResponse.getAutocompletePredictions();
+                            if (predictionList.size() > 0) {
+                                String placeId = predictionList.get(0).getPlaceId();
+                                List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+
+
+                                final FetchPlaceRequest placeRequest = FetchPlaceRequest.newInstance(placeId, placeFields);
+
+                                placesClient.fetchPlace(placeRequest).addOnSuccessListener(new OnSuccessListener<FetchPlaceResponse>() {
+                                    @Override
+                                    public void onSuccess(FetchPlaceResponse fetchPlaceResponse) {
+                                        startLatLong = fetchPlaceResponse.getPlace().getLatLng();
+
+
+                                        // region Find End Place
+                                        final AutocompleteSessionToken token2 = AutocompleteSessionToken.newInstance();
+                                        final FindAutocompletePredictionsRequest predictionsRequest2 = FindAutocompletePredictionsRequest
+                                                .builder()
+                                                .setCountry("GB")
+                                                .setTypeFilter(TypeFilter.ADDRESS)
+                                                .setSessionToken(token)
+                                                .setQuery(endText.getText().toString() + " Scotland")
+                                                .build();
+
+                                        placesClient.findAutocompletePredictions(predictionsRequest2).addOnCompleteListener(new OnCompleteListener<FindAutocompletePredictionsResponse>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<FindAutocompletePredictionsResponse> task) {
+                                                if(task.isSuccessful()){
+                                                    FindAutocompletePredictionsResponse predictionsResponse = task.getResult();
+                                                    if(predictionsResponse != null) {
+                                                        predictionList = predictionsResponse.getAutocompletePredictions();
+                                                        if (predictionList.size() > 0) {
+                                                            String placeId = predictionList.get(0).getPlaceId();
+                                                            List<Place.Field> placeFields = Arrays.asList(Place.Field.ID, Place.Field.NAME, Place.Field.LAT_LNG);
+
+
+                                                            final FetchPlaceRequest placeRequest = FetchPlaceRequest.newInstance(placeId, placeFields);
+
+                                                            placesClient.fetchPlace(placeRequest).addOnSuccessListener(new OnSuccessListener<FetchPlaceResponse>() {
+                                                                @Override
+                                                                public void onSuccess(FetchPlaceResponse fetchPlaceResponse) {
+                                                                    endLatLong = fetchPlaceResponse.getPlace().getLatLng();
+
+                                                                    calculateMedianLocation();
+                                                                    updateMapCamera();
+
+                                                                    String url = getUrl(startLatLong, endLatLong,"driving");
+                                                                    try {
+                                                                        new HttpGetGoogleMapA2BPlotterRequest(map).execute(url, "driving");
+                                                                    }catch (Exception e){
+                                                                        Log.i("", e.toString());
+                                                                    }
+                                                                    // endregion
+
+
+
+                                                                    // region Add Incidents and Roadworks
+                                                                    addIncidentsAndRoadworks();
+                                                                    // endregion
+                                                                }
+                                                            }).addOnFailureListener(new OnFailureListener() {
+                                                                @Override
+                                                                public void onFailure(@NonNull Exception e) {
+                                                                    Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                                                    toast.show();
+                                                                }
+                                                            });
+                                                        } else {
+                                                            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                                            toast.show();
+                                                        }
+                                                    }
+                                                } else {
+                                                    Log.i("error", "prediction fetching task unsuccessful");
+                                                }
+                                            }
+                                        });
+                                        // endregion
+
+
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                        toast.show();
+                                    }
+                                });
+                            } else {
+                                Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                toast.show();
+                            }
+                        }
+                    } else {
+                        Log.i("error", "prediction fetching task unsuccessful");
+                    }
+                }
+            });
+            // endregion
+        }
+    }
+
+
+    private String getUrl(LatLng origin, LatLng dest, String directionMode) {
+        String str_origin = "origin=" + origin.latitude + "," + origin.longitude;
+        String str_dest = "destination=" + dest.latitude + "," + dest.longitude;
+        String mode = "mode=" + directionMode;
+        String parameters = str_origin + "&" + str_dest + "&" + mode;
+        String output = "json";
+        String url = "https://maps.googleapis.com/maps/api/directions/" + output + "?" + parameters + "&key=" + "AIzaSyB-wEH8r3o-6Ajme-I33bBUGx-9wuxGgyI";// getString(R.string.google_maps_key);
+        return url;
+    }
+
+
+    private void calculateMedianLocation(){
+        Double lat = (startLatLong.latitude + endLatLong.latitude)/2;
+        Double lon = (startLatLong.longitude + endLatLong.longitude)/2;
+        medianLatLong = new LatLng(lat,lon);
+    }
+
+
+
+    private void updateMapCamera(){
+        map.clear();
+        map.moveCamera(CameraUpdateFactory.newLatLngZoom(medianLatLong, ZOOM_LEVEL));
+    }
+
+    private void addIncidentsAndRoadworks(){
+        SourceViewRequest request = SourceViewRequest.Journey;
+        controller.getCurrentIncidents(request, this);
+        controller.getRoadWorks(request, this);
+
+    }
+
+    @Override
+    public void processFinish(APIModel output) {
+        for (ChannelItem item : output.getChannel().getChannelItems()) {
+            map.addMarker(new MarkerOptions().position(item.getCoordinates())
+                    .title(item.getTitle()));
+        }
+    }
+    // endregion
 }
