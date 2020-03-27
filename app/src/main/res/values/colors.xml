@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!--these are the theme colours used throughout the application -->
+
 <resources>
     <color name="colorPrimary">#304163</color>
     <color name="colorPrimaryDark">#516c8d</color>

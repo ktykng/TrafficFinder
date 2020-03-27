@@ -1,4 +1,7 @@
 <resources>
+
+<!--    the titles and strings used throughout the application -->
+
     <string name="app_name">TrafficFinder</string>
     <string name="title_today">Todays Traffic</string>
     <string name="title_planner">Journey Planner</string>
@@ -11,6 +14,7 @@
 
     <string name="text_box_enter_a_destination">Enter a destination</string>
     <string name="text_box_enter_a_start_point">Enter a start point</string>
+    <string name="text_box_enter_a_date">Enter date</string>
 
 
     <string name="text_box_filter_by">Filter by</string>

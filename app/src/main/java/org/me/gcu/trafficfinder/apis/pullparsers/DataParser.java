@@ -1,14 +1,19 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//data parser class, extracting the relevant information using the endpoints
+//made 26/03/2020
+
 package org.me.gcu.trafficfinder.apis.pullparsers;
 
+//imports
 import com.google.android.gms.maps.model.LatLng;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 
 public class DataParser {
     public List<List<HashMap<String, String>>> parse(JSONObject jObject) {

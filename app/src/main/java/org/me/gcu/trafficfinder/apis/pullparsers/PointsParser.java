@@ -1,5 +1,9 @@
-package org.me.gcu.trafficfinder.apis.pullparsers;
+//Name: Katie King
+//Matriculation No.: S1827986
+//point parser class
+//made 26/03/2020
 
+package org.me.gcu.trafficfinder.apis.pullparsers;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
@@ -10,7 +14,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.PolylineOptions;
 
 import org.json.JSONObject;
-import org.me.gcu.trafficfinder.apis.pullparsers.DataParser;
 import org.me.gcu.trafficfinder.models.interfaces.TaskLoadedCallback;
 
 import java.util.ArrayList;

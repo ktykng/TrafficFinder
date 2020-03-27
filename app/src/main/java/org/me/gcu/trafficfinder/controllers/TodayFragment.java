@@ -1,28 +1,30 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//Today's Traffic Page Controller, made 24/03/2020
+
+
 package org.me.gcu.trafficfinder.controllers;
 
+//imports
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.datepicker.MaterialDatePicker;
 import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
 import org.me.gcu.trafficfinder.R;
 import org.me.gcu.trafficfinder.apis.controllers.APIController;
 import org.me.gcu.trafficfinder.controllers.helpers.DatePickerHelper;
@@ -31,11 +33,12 @@ import org.me.gcu.trafficfinder.models.apimodels.ChannelItem;
 import org.me.gcu.trafficfinder.models.enums.AsyncTaskCallUrlType;
 import org.me.gcu.trafficfinder.models.enums.SourceViewRequest;
 import org.me.gcu.trafficfinder.models.interfaces.AsyncResponse;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class TodayFragment extends Fragment implements AsyncResponse {
+
+    //private variables
     private TextInputEditText dateInput;
     private TextInputLayout dateInputLayout;
     private ConstraintLayout constraintLayout;
@@ -43,19 +46,15 @@ public class TodayFragment extends Fragment implements AsyncResponse {
     private ArrayAdapter<String> adapter;
     private ArrayList<String> arrayList;
     private ListView listView;
-    private TodayFragment todayController = this;
+    private TodayFragment todayFragment = this;
     private String selectedDateString;
     private ArrayList<ChannelItem> requestModels = new ArrayList<>();
-    private AutoCompleteTextView filterText;
-    private TextInputLayout filterLayout;
 
 
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              final ViewGroup container, Bundle savedInstanceState) {
-
-
 
         // region Call Traffic Scotland Controller to get Current Incidents
         APIController controller = new APIController();
@@ -69,25 +68,13 @@ public class TodayFragment extends Fragment implements AsyncResponse {
 
         // region Find all Views By Id
         View root = inflater.inflate(R.layout.fragment_today, container, false);
-        //list = root.findViewById(R.id.today_recycler_view);
         dateInput = root.findViewById(R.id.today_date_field);
         dateInputLayout = root.findViewById(R.id.today_date_layout);
         constraintLayout = root.findViewById(R.id.today_constraint_layout);
         listView = root.findViewById(R.id.today_list_view);
-        filterLayout = root.findViewById(R.id.look_filter_layout);
-        filterText = root.findViewById(R.id.look_filter_field);
+
         // endregion
 
-        //region Instantiate - Dropdown Box Filter By
-//        String[] filterArray = new String[] {"All", "Roadwork", "Current Incident"};
-//
-//        ArrayAdapter<String> adapter =
-//                new ArrayAdapter<>(
-//                        getContext(),
-//                        R.layout.dropdown_menu_popup_item,
-//                        filterArray);
-//
-//        filterText.setAdapter(adapter);
 
         // region Date Picker Instantiation
         final DatePickerHelper dpHelper = new DatePickerHelper(dateInput);
@@ -114,26 +101,24 @@ public class TodayFragment extends Fragment implements AsyncResponse {
                     SourceViewRequest viewRequest = SourceViewRequest.Today;
                     if (!dateInput.getText().toString().equals(dpHelper.today())) {
                         // Any future dates
-                        controller.getPlannedRoadWorks(viewRequest, todayController);
+                        controller.getPlannedRoadWorks(viewRequest, todayFragment);
                     } else {
                         // Today
-                        controller.getRoadWorks(viewRequest, todayController);
-                        controller.getCurrentIncidents(viewRequest, todayController);
+                        controller.getRoadWorks(viewRequest, todayFragment);
+                        controller.getCurrentIncidents(viewRequest, todayFragment);
                     }
                 } else {
                     Toast toast = Toast.makeText(getContext(),
-                            "Please don't select a date prior to today",
+                            "Please do not select a date in the past",
                             Toast.LENGTH_LONG);
                     toast.show();
                 }
 
             }
         });
-        // endregion
-
+         //endregion
         return root;
     }
-
 
 
     @Override
@@ -144,8 +129,6 @@ public class TodayFragment extends Fragment implements AsyncResponse {
             requestModels.add(item);
         }
 
-
-
         if(output.getInput().getUrlType() != AsyncTaskCallUrlType.TrafficScotland_Roadworks){
             // If all requests have been completed, display all requests to the view
             // There can be a max of 2 requests, one from the output and one from the tempModel
@@ -154,13 +137,12 @@ public class TodayFragment extends Fragment implements AsyncResponse {
             listView.setAdapter(adapter);
             requestModels = new ArrayList<>();
         }
-
-
     }
 
 
     class ListAdapter extends ArrayAdapter<ChannelItem> {
 
+        //private variables
         private Context context;
         private List<ChannelItem> allItems;
 
@@ -194,8 +176,8 @@ public class TodayFragment extends Fragment implements AsyncResponse {
             currentTitle.setText(allItems.get(position).getTitle());
             currentDescription.setText(allItems.get(position).getDescription());
 
-
             return row;
         }
     }
+
 }

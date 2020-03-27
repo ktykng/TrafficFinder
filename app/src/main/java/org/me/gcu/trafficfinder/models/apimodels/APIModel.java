@@ -1,4 +1,10 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//API model class, calls the channel and the input from the Async task call input method.
+//made 26/03/2020
+
 package org.me.gcu.trafficfinder.models.apimodels;
+
 public class APIModel {
     private Channel channel;
     private AsyncTaskCallInput input;

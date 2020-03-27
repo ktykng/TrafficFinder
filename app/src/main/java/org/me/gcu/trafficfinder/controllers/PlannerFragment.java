@@ -1,3 +1,7 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//Planner page controller, made 24/03/2020
+
 package org.me.gcu.trafficfinder.controllers;
 
 import android.os.Bundle;

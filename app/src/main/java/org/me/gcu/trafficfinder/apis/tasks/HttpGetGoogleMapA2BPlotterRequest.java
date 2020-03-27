@@ -1,13 +1,16 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//requesting ot plot on google maps class
+//made 26/03/2020
+
 package org.me.gcu.trafficfinder.apis.tasks;
 
+//imports
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.google.android.gms.maps.GoogleMap;
-
 import org.me.gcu.trafficfinder.apis.pullparsers.PointsParser;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;

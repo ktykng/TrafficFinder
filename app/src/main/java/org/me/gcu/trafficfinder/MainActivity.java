@@ -1,5 +1,11 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//main activity class, instantiates the application.
+//made 24/03/2020
+
 package org.me.gcu.trafficfinder;
 
+//imports
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;

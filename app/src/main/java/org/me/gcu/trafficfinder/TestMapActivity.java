@@ -1,5 +1,11 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//test map activity.
+//made 24/03/2020
+
 package org.me.gcu.trafficfinder;
 
+//imports
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;

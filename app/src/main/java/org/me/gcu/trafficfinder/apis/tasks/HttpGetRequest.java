@@ -1,13 +1,16 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//getting the google maps through a Http get request
+//made 26/03/2020
+
 package org.me.gcu.trafficfinder.apis.tasks;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -17,13 +20,10 @@ import org.me.gcu.trafficfinder.models.apimodels.Channel;
 import org.me.gcu.trafficfinder.models.interfaces.AsyncResponse;
 import org.xmlpull.v1.XmlPullParserFactory;
 
-import java.io.BufferedReader;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class HttpGetRequest extends AsyncTask<APIModel, Void, APIModel> {
 

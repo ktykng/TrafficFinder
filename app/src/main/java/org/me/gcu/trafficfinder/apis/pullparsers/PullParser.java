@@ -1,17 +1,20 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//pull parser class, pulling the channel, item and coordinates from the data
+//made 26/03/2020
+
 package org.me.gcu.trafficfinder.apis.pullparsers;
 
+//imports
 import android.util.Log;
-
 import org.me.gcu.trafficfinder.models.apimodels.Channel;
 import org.me.gcu.trafficfinder.models.apimodels.ChannelItem;
 import org.me.gcu.trafficfinder.models.enums.PullParserScope;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
-
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

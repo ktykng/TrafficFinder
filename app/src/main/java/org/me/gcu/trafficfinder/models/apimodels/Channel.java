@@ -1,16 +1,21 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//channel class, declares variables, creates constructors and getters/setters
+//made 26/03/2020
+
 package org.me.gcu.trafficfinder.models.apimodels;
 
+//imports
 import java.util.ArrayList;
 import java.util.List;
 
 public class Channel {
+    //private variables
     private String Title;
     private String Description;
     private String Link;
     private int Ttl;
     private ArrayList<ChannelItem> ChannelItems;
-
-
 
     // Empty Constructor
     public Channel() {
@@ -29,7 +34,6 @@ public class Channel {
         Ttl = ttl;
         ChannelItems = channelItems;
     }
-
 
 
     // Getters and Setters
@@ -74,7 +78,7 @@ public class Channel {
     }
 
 
-    // Methods
+    // addItem method
     public void addItem(ChannelItem item){
         ChannelItems.add(item);
     }

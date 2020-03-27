@@ -1,13 +1,19 @@
+//Name: Katie King
+//Matriculation No.: S1827986
+//channel item class, declares variables, creates constructors and getters/setters
+//made 26/03/2020
+
 package org.me.gcu.trafficfinder.models.apimodels;
 
+//imports
 import com.google.android.gms.maps.model.LatLng;
 import org.me.gcu.trafficfinder.models.enums.AsyncTaskCallUrlType;
-
 import java.util.Calendar;
 import java.util.Date;
 
 public class ChannelItem {
 
+    //private variables
     private String Title;
     private String Description;
     private String Link;
@@ -18,7 +24,7 @@ public class ChannelItem {
     private AsyncTaskCallUrlType Type;
 
 
-    // Empty Constructor
+    // Constructor
     public ChannelItem() {
         Title = "";
         Description = "";
