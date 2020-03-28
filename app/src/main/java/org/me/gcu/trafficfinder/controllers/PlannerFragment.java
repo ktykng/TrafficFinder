@@ -159,13 +159,13 @@ public class PlannerFragment extends Fragment implements OnMapReadyCallback, Asy
         boolean failedValidation = false;
 
         if(startText.getText().toString() == null || startText.getText().toString().equals("")){
-            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "Please enter a start point", Toast.LENGTH_SHORT);
             toast.show();
             failedValidation = true;
         }
 
         if(endText.getText().toString() == null || endText.getText().toString().equals("")){
-            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "Please enter a destination", Toast.LENGTH_SHORT);
             toast.show();
             failedValidation = true;
         }
@@ -255,12 +255,12 @@ public class PlannerFragment extends Fragment implements OnMapReadyCallback, Asy
                                                             }).addOnFailureListener(new OnFailureListener() {
                                                                 @Override
                                                                 public void onFailure(@NonNull Exception e) {
-                                                                    Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                                                    Toast toast = Toast.makeText(getContext(), "Check connection", Toast.LENGTH_SHORT);
                                                                     toast.show();
                                                                 }
                                                             });
                                                         } else {
-                                                            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                                            Toast toast = Toast.makeText(getContext(), "Place does not exist", Toast.LENGTH_SHORT);
                                                             toast.show();
                                                         }
                                                     }
@@ -276,12 +276,12 @@ public class PlannerFragment extends Fragment implements OnMapReadyCallback, Asy
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
-                                        Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                        Toast toast = Toast.makeText(getContext(), "Check connection", Toast.LENGTH_SHORT);
                                         toast.show();
                                     }
                                 });
                             } else {
-                                Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                Toast toast = Toast.makeText(getContext(), "Place does not exist", Toast.LENGTH_SHORT);
                                 toast.show();
                             }
                         }

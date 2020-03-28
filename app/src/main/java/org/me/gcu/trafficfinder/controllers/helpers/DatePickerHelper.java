@@ -66,7 +66,7 @@ public class DatePickerHelper {
 
 
     public boolean validate(long dateToValidate){
-        return dateToValidate > _today;
+        return dateToValidate > _startDate;
     }
 
 

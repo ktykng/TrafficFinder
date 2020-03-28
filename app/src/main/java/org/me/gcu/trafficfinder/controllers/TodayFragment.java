@@ -165,7 +165,7 @@ public class TodayFragment extends Fragment implements AsyncResponse {
 
     private void submit(View root){
         if(filterText.getText().toString() == null || filterText.getText().toString().equals("")){
-            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "Please select a filter by type", Toast.LENGTH_SHORT);
             toast.show();
 
         }else{

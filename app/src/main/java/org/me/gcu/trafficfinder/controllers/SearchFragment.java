@@ -167,13 +167,13 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Asyn
         boolean failedValidation = false;
 
         if(filterText.getText().toString() == null || filterText.getText().toString().equals("")){
-            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "Please select a filter by type", Toast.LENGTH_SHORT);
             toast.show();
             failedValidation = true;
         }
 
         if(searchForRoadText.getText().toString() == null || searchForRoadText.getText().toString().equals("")){
-            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(getContext(), "Please enter a road", Toast.LENGTH_SHORT);
             toast.show();
             failedValidation = true;
         }
@@ -225,12 +225,12 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Asyn
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                                    Toast toast = Toast.makeText(getContext(), "Check connection", Toast.LENGTH_SHORT);
                                     toast.show();
                                 }
                             });
                         } else {
-                            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+                            Toast toast = Toast.makeText(getContext(), "Place does not exist", Toast.LENGTH_SHORT);
                             toast.show();
                         }
                     }
