@@ -161,14 +161,6 @@ public class TodayFragment extends Fragment implements AsyncResponse {
         listView.setAdapter(adapter);
         requestModels = new ArrayList<>();
 
-//        if(output.getInput().getUrlType() != AsyncTaskCallUrlType.TrafficScotland_Roadworks){
-//            // If all requests have been completed, display all requests to the view
-//            // There can be a max of 2 requests, one from the output and one from the tempModel
-//
-//            ListAdapter adapter = new ListAdapter(this.getContext(), requestModels);
-//            listView.setAdapter(adapter);
-//            requestModels = new ArrayList<>();
-//        }
     }
 
     private void submit(View root){
@@ -231,7 +223,7 @@ public class TodayFragment extends Fragment implements AsyncResponse {
             } else if(allItems.get(position).getType() == AsyncTaskCallUrlType.TrafficScotland_CurrentIncidents) {
                 currentImage.setImageResource(R.drawable.ic_local_car_wash_black_24dp);
                 currentTypeText.setText("Incident");
-            } else{
+            } else if (allItems.get(position).getType() == AsyncTaskCallUrlType.TrafficScotland_PlannedRoadworks){
                 currentImage.setImageResource(R.drawable.ic_traffic_black_24dp);
                 currentTypeText.setText("Planned");
             }
@@ -243,55 +235,5 @@ public class TodayFragment extends Fragment implements AsyncResponse {
         }
 
     }
-//    private void callTrafficScotlandApi(String filter){
-//
-//        APIController controller = new APIController();
-//        SourceViewRequest request = SourceViewRequest.Look;
-//        switch (filter){
-//            case "Roadwork":
-//                controller.getRoadWorks(request, this);
-//                break;
-//
-//            case "Incident":
-//                controller.getCurrentIncidents(request, this);
-//                break;
-//
-//            case "Planned":
-//                controller.getPlannedRoadWorks(request, this);
-//                break;
-//
-//            case "All":
-//                controller.getPlannedRoadWorks(request, this) ;
-//                controller.getCurrentIncidents(request, this);
-//                controller.getRoadWorks(request, this);
-//
-//            default:
-//                controller.getPlannedRoadWorks(request, this) ;
-//                controller.getCurrentIncidents(request, this);
-//                controller.getRoadWorks(request, this);
-//                break;
-//        }
-
-
-//        if(filter.equals("Roadwork")){
-//            APIController controller = new APIController();
-//            SourceViewRequest request = SourceViewRequest.Look;
-//            controller.getRoadWorks(request, this);
-//        } else if (filter.equals("Incident")) {
-//            APIController controller = new APIController();
-//            SourceViewRequest request = SourceViewRequest.Look;
-//            controller.getCurrentIncidents(request, this);
-//        } else if (filter.equals("Planned")) {
-//            APIController controller = new APIController();
-//            SourceViewRequest request = SourceViewRequest.Look;
-//            controller.getPlannedRoadWorks(request, this);
-//        }else if (filter.equals("All")){
-//            APIController controller = new APIController();
-//            SourceViewRequest request = SourceViewRequest.Look;
-//            controller.getPlannedRoadWorks(request, this) ;
-//            controller.getCurrentIncidents(request, this);
-//            controller.getRoadWorks(request, this);
-//        }
-    //}
 
 }
