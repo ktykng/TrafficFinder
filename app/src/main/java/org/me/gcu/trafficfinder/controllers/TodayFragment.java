@@ -1,6 +1,8 @@
-//Name: Katie King
-//Matriculation No.: S1827986
-//Today's Traffic Page Controller, made 24/03/2020
+/*
+Name: Katie King
+Matriculation No.: S1827986
+Today's Traffic Page Controller, made 24/03/2020
+*/
 
 
 package org.me.gcu.trafficfinder.controllers;
@@ -12,6 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,6 +53,10 @@ public class TodayFragment extends Fragment implements AsyncResponse {
     private TodayFragment todayFragment = this;
     private String selectedDateString;
     private ArrayList<ChannelItem> requestModels = new ArrayList<>();
+    private AutoCompleteTextView filterText;
+    private TextInputLayout filterLayout;
+    private Button submitButton;
+
 
 
 
@@ -61,7 +69,6 @@ public class TodayFragment extends Fragment implements AsyncResponse {
         SourceViewRequest request = SourceViewRequest.Today;
         controller.getRoadWorks(request, this);
         controller.getCurrentIncidents(request, this);
-
         // endregion
 
 
@@ -72,8 +79,22 @@ public class TodayFragment extends Fragment implements AsyncResponse {
         dateInputLayout = root.findViewById(R.id.today_date_layout);
         constraintLayout = root.findViewById(R.id.today_constraint_layout);
         listView = root.findViewById(R.id.today_list_view);
+        filterLayout = root.findViewById(R.id.look_filter_layout);
+        filterText = root.findViewById(R.id.look_filter_field);
+        submitButton = root.findViewById(R.id.today_submit);
 
         // endregion
+
+        String[] filterArray = new String[] {"Roadwork", "Incident", "Planned"};
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        getContext(),
+                        R.layout.dropdown_menu_popup_item,
+                        filterArray);
+
+
+        filterText.setAdapter(adapter);
 
 
         // region Date Picker Instantiation
@@ -81,6 +102,13 @@ public class TodayFragment extends Fragment implements AsyncResponse {
         final MaterialDatePicker dp = dpHelper.build();
         dateInput.setText(dpHelper.today());
 
+
+        submitButton.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                submit(v);
+            }
+        });
 
         dateInput.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,7 +130,7 @@ public class TodayFragment extends Fragment implements AsyncResponse {
                     if (!dateInput.getText().toString().equals(dpHelper.today())) {
                         // Any future dates
                         controller.getPlannedRoadWorks(viewRequest, todayFragment);
-                    } else {
+                    } else if (dateInput.getText().toString().equals(dpHelper.today())){
                         // Today
                         controller.getRoadWorks(viewRequest, todayFragment);
                         controller.getCurrentIncidents(viewRequest, todayFragment);
@@ -129,13 +157,48 @@ public class TodayFragment extends Fragment implements AsyncResponse {
             requestModels.add(item);
         }
 
-        if(output.getInput().getUrlType() != AsyncTaskCallUrlType.TrafficScotland_Roadworks){
-            // If all requests have been completed, display all requests to the view
-            // There can be a max of 2 requests, one from the output and one from the tempModel
+        ListAdapter adapter = new ListAdapter(this.getContext(), requestModels);
+        listView.setAdapter(adapter);
+        requestModels = new ArrayList<>();
 
-            ListAdapter adapter = new ListAdapter(this.getContext(), requestModels);
-            listView.setAdapter(adapter);
-            requestModels = new ArrayList<>();
+//        if(output.getInput().getUrlType() != AsyncTaskCallUrlType.TrafficScotland_Roadworks){
+//            // If all requests have been completed, display all requests to the view
+//            // There can be a max of 2 requests, one from the output and one from the tempModel
+//
+//            ListAdapter adapter = new ListAdapter(this.getContext(), requestModels);
+//            listView.setAdapter(adapter);
+//            requestModels = new ArrayList<>();
+//        }
+    }
+
+    private void submit(View root){
+        if(filterText.getText().toString() == null || filterText.getText().toString().equals("")){
+            Toast toast = Toast.makeText(getContext(), "An input you have entered is wrong", Toast.LENGTH_SHORT);
+            toast.show();
+
+        }else{
+            String filter = filterText.getText().toString();
+            APIController controller = new APIController();
+            SourceViewRequest viewRequest = SourceViewRequest.Today;
+            switch (filter){
+                case "Roadwork":
+                    controller.getRoadWorks(viewRequest, todayFragment);
+                    break;
+
+                case "Incident":
+                    controller.getCurrentIncidents(viewRequest, todayFragment);
+                    break;
+
+                case "Planned":
+                    controller.getPlannedRoadWorks(viewRequest, todayFragment);
+                    break;
+
+                default:
+                    controller.getPlannedRoadWorks(viewRequest, todayFragment);
+                    controller.getCurrentIncidents(viewRequest, todayFragment);
+                    controller.getRoadWorks(viewRequest, todayFragment);
+                    break;
+            }
         }
     }
 
@@ -162,13 +225,13 @@ public class TodayFragment extends Fragment implements AsyncResponse {
             TextView currentDescription = row.findViewById(R.id.textView2);
             TextView currentTypeText = row.findViewById(R.id.today_card_type_text);
 
-            if(allItems.get(position).getType() == AsyncTaskCallUrlType.TrafficScotland_CurrentIncidents){
-                currentImage.setImageResource(R.drawable.ic_local_car_wash_black_24dp);
-                currentTypeText.setText("Incident");
-            } else if(allItems.get(position).getType() == AsyncTaskCallUrlType.TrafficScotland_Roadworks) {
+            if(allItems.get(position).getType() == AsyncTaskCallUrlType.TrafficScotland_Roadworks){
                 currentImage.setImageResource(R.drawable.ic_warning_black_24dp);
                 currentTypeText.setText("Roadwork");
-            } else {
+            } else if(allItems.get(position).getType() == AsyncTaskCallUrlType.TrafficScotland_CurrentIncidents) {
+                currentImage.setImageResource(R.drawable.ic_local_car_wash_black_24dp);
+                currentTypeText.setText("Incident");
+            } else{
                 currentImage.setImageResource(R.drawable.ic_traffic_black_24dp);
                 currentTypeText.setText("Planned");
             }
@@ -178,6 +241,57 @@ public class TodayFragment extends Fragment implements AsyncResponse {
 
             return row;
         }
+
     }
+//    private void callTrafficScotlandApi(String filter){
+//
+//        APIController controller = new APIController();
+//        SourceViewRequest request = SourceViewRequest.Look;
+//        switch (filter){
+//            case "Roadwork":
+//                controller.getRoadWorks(request, this);
+//                break;
+//
+//            case "Incident":
+//                controller.getCurrentIncidents(request, this);
+//                break;
+//
+//            case "Planned":
+//                controller.getPlannedRoadWorks(request, this);
+//                break;
+//
+//            case "All":
+//                controller.getPlannedRoadWorks(request, this) ;
+//                controller.getCurrentIncidents(request, this);
+//                controller.getRoadWorks(request, this);
+//
+//            default:
+//                controller.getPlannedRoadWorks(request, this) ;
+//                controller.getCurrentIncidents(request, this);
+//                controller.getRoadWorks(request, this);
+//                break;
+//        }
+
+
+//        if(filter.equals("Roadwork")){
+//            APIController controller = new APIController();
+//            SourceViewRequest request = SourceViewRequest.Look;
+//            controller.getRoadWorks(request, this);
+//        } else if (filter.equals("Incident")) {
+//            APIController controller = new APIController();
+//            SourceViewRequest request = SourceViewRequest.Look;
+//            controller.getCurrentIncidents(request, this);
+//        } else if (filter.equals("Planned")) {
+//            APIController controller = new APIController();
+//            SourceViewRequest request = SourceViewRequest.Look;
+//            controller.getPlannedRoadWorks(request, this);
+//        }else if (filter.equals("All")){
+//            APIController controller = new APIController();
+//            SourceViewRequest request = SourceViewRequest.Look;
+//            controller.getPlannedRoadWorks(request, this) ;
+//            controller.getCurrentIncidents(request, this);
+//            controller.getRoadWorks(request, this);
+//        }
+    //}
 
 }

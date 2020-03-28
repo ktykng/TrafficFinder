@@ -17,6 +17,7 @@ public class DatePickerHelper {
 
     //Private variables
     private TextInputEditText _dateInput;
+    private long _today;
     private long _startDate;
     private long _endDate;
     private Calendar _calendar;
@@ -71,7 +72,7 @@ public class DatePickerHelper {
 //    }
 
     public boolean validate(long dateToValidate){
-        return dateToValidate > _startDate;
+        return dateToValidate > _today;
     }
 
 

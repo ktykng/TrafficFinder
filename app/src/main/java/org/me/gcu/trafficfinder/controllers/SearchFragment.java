@@ -66,8 +66,8 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Asyn
     private List<AutocompletePrediction> predictionList;
     private FusedLocationProviderClient mFusedLocationProviderClient;
     private PlacesClient placesClient;
-    private AutoCompleteTextView filterText;
     private Button submitButton;
+    private AutoCompleteTextView filterText;
     private TextInputLayout filterLayout;
     private TextInputLayout searchForRoadLayout;
     private LatLng searchedLatLong;
