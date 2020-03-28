@@ -38,38 +38,47 @@ public class Channel {
 
     // Getters and Setters
     public String getTitle() {
+
         return Title;
     }
 
     public void setTitle(String title) {
+
         Title = title;
     }
 
     public String getDescription() {
+
         return Description;
     }
 
     public void setDescription(String description) {
+
         Description = description;
     }
 
     public String getLink() {
+
         return Link;
     }
 
     public void setLink(String link) {
+
         Link = link;
     }
 
     public int getTtl() {
+
         return Ttl;
     }
 
     public void setTtl(int ttl) {
+
         Ttl = ttl;
     }
 
     public List<ChannelItem> getChannelItems() {
+
         return ChannelItems;
     }
 
@@ -80,6 +89,7 @@ public class Channel {
 
     // addItem method
     public void addItem(ChannelItem item){
+
         ChannelItems.add(item);
     }
 }

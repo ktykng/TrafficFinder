@@ -9,7 +9,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/look_filter_layout"
+        android:id="@+id/search_filter_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/look_filter_field"
+            android:id="@+id/search_filter_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false" />
@@ -27,17 +27,17 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/look_search_layout"
+        android:id="@+id/search_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconDrawable="@drawable/quantum_ic_search_grey600_24"
         app:endIconMode="custom"
         app:errorEnabled="false"
-        app:layout_constraintTop_toBottomOf="@+id/look_filter_layout">
+        app:layout_constraintTop_toBottomOf="@+id/search_filter_layout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/look_search_field"
+            android:id="@+id/search_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Search for a road"
@@ -49,10 +49,10 @@
 
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/look_search_submit"
+        android:id="@+id/search_submit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@+id/look_search_layout"
+        app:layout_constraintTop_toBottomOf="@+id/search_layout"
         android:textAllCaps="false"
         android:text="@string/search"
         />
@@ -65,11 +65,11 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/look_search_submit">
+        app:layout_constraintTop_toBottomOf="@+id/search_submit">
 
         <com.google.android.gms.maps.MapView
             android:layout_height="match_parent"
-            android:id="@+id/look_map_view"
+            android:id="@+id/search_map_view"
             android:name="com.google.android.gms.maps.MapView"
             android:layout_width="match_parent"
             app:layout_constraintEnd_toEndOf="parent"

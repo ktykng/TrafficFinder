@@ -115,22 +115,6 @@ public class APIController {
     }
 
 
-
-
-
-//    public void getPlannedRoadWorks(SourceViewRequest viewRequest){
-//        HttpGetRequest getRequest = new HttpGetRequest();
-//        AsyncTaskCallInput input = new AsyncTaskCallInput(
-//                AsyncTaskCallUrlType.TrafficScotland_PlannedRoadworks,
-//                plannedRoadWorksUrl,
-//                viewRequest
-//        );
-//
-//        APIModel model = new APIModel( new Channel(), input );
-//        getRequest.execute(model);
-//    }
-
-
     //gets the planned road works for the todays traffic page
     public void getPlannedRoadWorks(SourceViewRequest viewRequest, TodayFragment controller){
         HttpGetRequest getRequest = new HttpGetRequest();

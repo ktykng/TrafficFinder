@@ -65,12 +65,6 @@ public class DatePickerHelper {
     }
 
 
-//    public String formatDate(Date dateIn){
-//        SimpleDateFormat dateFormat = new SimpleDateFormat(_dateFormatString);
-//        dateFormat.setTimeZone(TimeZone.getTimeZone("UTC"));
-//        return dateFormat.format(dateIn);
-//    }
-
     public boolean validate(long dateToValidate){
         return dateToValidate > _today;
     }

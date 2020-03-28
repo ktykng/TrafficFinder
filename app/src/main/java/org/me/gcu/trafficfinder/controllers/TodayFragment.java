@@ -79,8 +79,8 @@ public class TodayFragment extends Fragment implements AsyncResponse {
         dateInputLayout = root.findViewById(R.id.today_date_layout);
         constraintLayout = root.findViewById(R.id.today_constraint_layout);
         listView = root.findViewById(R.id.today_list_view);
-        filterLayout = root.findViewById(R.id.look_filter_layout);
-        filterText = root.findViewById(R.id.look_filter_field);
+        filterLayout = root.findViewById(R.id.search_filter_layout);
+        filterText = root.findViewById(R.id.search_filter_field);
         submitButton = root.findViewById(R.id.today_submit);
 
         // endregion

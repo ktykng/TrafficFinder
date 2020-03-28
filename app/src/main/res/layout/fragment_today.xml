@@ -11,7 +11,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/look_filter_layout"
+        android:id="@+id/search_filter_layout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="174dp"
         android:layout_height="60dp"
@@ -27,7 +27,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/look_filter_field"
+            android:id="@+id/search_filter_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false" />

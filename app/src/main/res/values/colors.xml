@@ -3,7 +3,7 @@
 <!--these are the theme colours used throughout the application -->
 
 <resources>
-    <color name="colorPrimary">#304163</color>
-    <color name="colorPrimaryDark">#516c8d</color>
-    <color name="colorAccent">#dddddd</color>
+    <color name="colorPrimary">#7393a7</color>
+    <color name="colorPrimaryDark">#6c737e</color>
+    <color name="colorAccent">#e8ecf1</color>
 </resources>

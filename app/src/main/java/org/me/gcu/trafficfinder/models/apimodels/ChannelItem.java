@@ -63,10 +63,12 @@ public class ChannelItem {
 
     // Getters and Setters
     public String getTitle() {
+
         return Title;
     }
 
     public void setTitle(String title) {
+
         Title = title;
     }
 
@@ -76,18 +78,22 @@ public class ChannelItem {
     }
 
     public void setDescription(String description) {
+
         Description = description;
     }
 
     public String getLink() {
+
         return Link;
     }
 
     public void setLink(String link) {
+
         Link = link;
     }
 
     public LatLng getCoordinates() {
+
         return Coordinates.getCoordinates();
     }
 
@@ -96,34 +102,42 @@ public class ChannelItem {
     }
 
     public Date getDatePublished() {
+
         return DatePublished;
     }
 
     public void setDatePublished(Date datePublished) {
+
         DatePublished = datePublished;
     }
 
     public Date getStartDate() {
+
         return StartDate;
     }
 
     public void setStartDate(Date startDate) {
+
         StartDate = startDate;
     }
 
     public Date getEndDate() {
-        return EndDate;
+        return
+                EndDate;
     }
 
     public void setEndDate(Date endDate) {
+
         EndDate = endDate;
     }
 
     public AsyncTaskCallUrlType getType() {
+
         return Type;
     }
 
     public void setType(AsyncTaskCallUrlType type) {
+
         Type = type;
     }
 }

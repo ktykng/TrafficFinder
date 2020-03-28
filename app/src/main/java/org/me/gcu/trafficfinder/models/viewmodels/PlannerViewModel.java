@@ -18,7 +18,7 @@ public class PlannerViewModel extends ViewModel {
     //planner view model method
     public PlannerViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is dashboard fragment");
+        //mText.setValue("This is dashboard fragment");
     }
 
     //getter

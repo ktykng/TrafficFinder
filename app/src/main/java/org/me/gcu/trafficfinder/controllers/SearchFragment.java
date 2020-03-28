@@ -80,11 +80,11 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Asyn
 
         // region Find all Views By Id
         root = inflater.inflate(R.layout.fragment_search, container, false);
-        filterLayout = root.findViewById(R.id.look_filter_layout);
-        filterText = root.findViewById(R.id.look_filter_field);
-        searchForRoadLayout = root.findViewById(R.id.look_search_layout);
-        searchForRoadText = root.findViewById(R.id.look_search_field);
-        submitButton = root.findViewById(R.id.look_search_submit);
+        filterLayout = root.findViewById(R.id.search_filter_layout);
+        filterText = root.findViewById(R.id.search_filter_field);
+        searchForRoadLayout = root.findViewById(R.id.search_layout);
+        searchForRoadText = root.findViewById(R.id.search_field);
+        submitButton = root.findViewById(R.id.search_submit);
         // endregion
 
         //region Instantiate - Dropdown Box Filter By
@@ -116,7 +116,7 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Asyn
 
         // region Instantiate - Map
         MapsInitializer.initialize(this.getActivity());
-        mapView = root.findViewById(R.id.look_map_view);
+        mapView = root.findViewById(R.id.search_map_view);
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync((OnMapReadyCallback) this);
         // endregion
@@ -255,11 +255,11 @@ public class SearchFragment extends Fragment implements OnMapReadyCallback, Asyn
 
         if(filter.equals("Roadwork")){
             APIController controller = new APIController();
-            SourceViewRequest request = SourceViewRequest.Look;
+            SourceViewRequest request = SourceViewRequest.Search;
             controller.getRoadWorks(request, this);
         } else {
             APIController controller = new APIController();
-            SourceViewRequest request = SourceViewRequest.Look;
+            SourceViewRequest request = SourceViewRequest.Search;
             controller.getCurrentIncidents(request, this);
         }
     }

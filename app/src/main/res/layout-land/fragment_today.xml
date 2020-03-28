@@ -26,7 +26,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <AutoCompleteTextView
-            android:id="@+id/look_filter_field"
+            android:id="@+id/search_filter_field"
             android:layout_width="179dp"
             android:layout_height="61dp"
             android:editable="false" />
@@ -45,7 +45,7 @@
         app:endIconDrawable="@drawable/ic_date_range_black_24dp"
         app:endIconMode="custom"
         app:errorEnabled="false"
-        app:layout_constraintEnd_toStartOf="@+id/look_filter_layout"
+        app:layout_constraintEnd_toStartOf="@+id/search_filter_layout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -79,7 +79,7 @@
         android:text="@string/search"
         android:textAllCaps="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/look_filter_layout"
+        app:layout_constraintStart_toEndOf="@+id/search_filter_layout"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
