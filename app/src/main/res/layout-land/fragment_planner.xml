@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--this is the layout for the journey planner page -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/planner_start_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="226dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginEnd="50dp"
+        app:endIconDrawable="@drawable/ic_location_on_black_24dp"
+        app:endIconMode="custom"
+        app:errorEnabled="false"
+        app:layout_constraintEnd_toStartOf="@+id/planner_end_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/planner_start_field"
+            android:layout_width="match_parent"
+            android:layout_height="49dp"
+            android:hint="@string/text_box_enter_a_start_point"
+            android:inputType="text"
+            android:singleLine="true"
+            android:visibility="visible" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/planner_end_layout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="221dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="10dp"
+        app:endIconDrawable="@drawable/ic_location_on_black_24dp"
+        app:endIconMode="custom"
+        app:errorEnabled="false"
+        app:layout_constraintStart_toEndOf="@+id/planner_start_layout"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/planner_end_field"
+            android:layout_width="208dp"
+            android:layout_height="52dp"
+            android:hint="@string/text_box_enter_a_destination"
+            android:inputType="text"
+            android:singleLine="true"
+            android:visibility="visible" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/planner_search_submit"
+        android:layout_width="202dp"
+        android:layout_height="66dp"
+        android:layout_marginStart="10dp"
+        android:text="@string/search"
+        android:textAllCaps="false"
+        app:layout_constraintStart_toEndOf="@+id/planner_end_layout"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="380dp"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="12dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/planner_search_submit">
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/planner_map_view"
+            android:name="com.google.android.gms.maps.MapView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.cardview.widget.CardView>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
